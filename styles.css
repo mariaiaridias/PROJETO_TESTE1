@@ -95,3 +95,24 @@ h1 {
 .botao:hover {
   background: #6f4a2f;
 }
+/* --- RESPONSIVO --- */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Para celular */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  /* Se suas fotos estão lado a lado, no celular ficam uma embaixo da outra */
+  .fotos, .container, .galeria {
+    flex-direction: column;
+  }
+}

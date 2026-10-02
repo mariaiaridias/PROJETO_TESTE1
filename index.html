@@ -1,33 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yara com Y - Meu Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hábitos - Outubro YA JUH LITHA</title>
+<style>
+  body{
+    font-family: -apple-system, sans-serif; 
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+    min-height: 100vh;
+    padding:20px; max-width:520px; margin:auto
+  }
+  .fotos{display:flex; justify-content:center; gap:20px; margin:15px 0 20px}
+  .foto-box{text-align:center}
+  .foto-box img{width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid #ff8a5b; box-shadow:0 4px 10px #0002}
+  .tabs{display:flex; gap:10px; margin-bottom:20px; justify-content:center}
+  .tab{padding:10px 20px; border-radius:20px; border:none; background:white; cursor:pointer; box-shadow:0 2px 5px #0001; font-weight:bold; letter-spacing:1px}
+  .tab.ativo{background:#ff8a5b; color:white}
+  .dia{background:rgba(255,255,255,0.9); backdrop-filter:blur(10px); border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 2px 8px #0001; border:1px solid #fff}
+  .data{font-size:13px; color:#888; margin-bottom:8px}
+  .habitos{display:flex; gap:7px; flex-wrap:wrap}
+  .h{padding:7px 11px; border-radius:20px; border:1px solid #ddd; cursor:pointer; font-size:12.5px; background:white}
+  .h.feito{background:#b8f5c8; border-color:#7be495; font-weight:bold}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Yara com Y </h1>
-    <p class="subtitulo">Meu tracker de hábitos - foco total</p>
+<h2 style="text-align:center; margin-bottom:2px">Outubro - 05 a 31 💧</h2>
+<p style="text-align:center; color:#888; font-size:13px; margin-top:0">Seg a Sex • sem fds</p>
 
-   <div class="galeria">
-  <img src="./treino.jpg" alt="só equipamento academia">
-  <img src="./agua.jpg" alt="2L agua com limao">
-  <img src="./estudo.jpg" alt="estudar 2 horas">
+<div class="fotos">
+  <div class="foto-box"><img src="yara.jpg" style="width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid #ff8a5b"><div style="font-size:12px; font-weight:bold; margin-top:6px">YA</div></div>
+  <div class="foto-box"><img src="juh.jpg" style="width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid #ff8a5b"><div style="font-size:12px; font-weight:bold; margin-top:6px">JUH</div></div>
+  <div class="foto-box"><img src="litha.jpg" style="width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid #ff8a5b"><div style="font-size:12px; font-weight:bold; margin-top:6px">LITHA</div></div>
 </div>
 
-    <div class="habitos">
-      <h2>Meus hábitos diários</h2>
-      <label><input type="checkbox"> Zero álcool</label>
-      <label><input type="checkbox"> 2L de água com limão</label>
-      <label><input type="checkbox"> 7/8h de sono</label>
-      <label><input type="checkbox"> Estudar mínimo 2 horas</label>
-      <label><input type="checkbox"> Treino do dia</label>
-      <label><input type="checkbox"> Sem açúcar</label>
-    </div>
+<div class="tabs">
+  <button class="tab ativo" onclick="trocarPessoa('ya', this)">YA</button>
+  <button class="tab" onclick="trocarPessoa('juh', this)">JUH</button>
+  <button class="tab" onclick="trocarPessoa('litha', this)">LITHA</button>
+</div>
+<div id="calendario"></div>
 
-    <a href="https://github.com/mariaridias" class="botao" target="_blank">Meu GitHub </a>
-  </div>
+<script>
+const habitosLista = ["💧 Bebi água", "🚭 Não fumei", "🍷 Sem álcool", "🏃 Exercício", "😴 Dormi bem", "🚫 Zero açúcar"];
+let pessoaAtual = "ya";
+let dados = JSON.parse(localStorage.getItem("habitos_outubro_v3") || "{}");
+
+function trocarPessoa(p, btn){
+  pessoaAtual = p;
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("ativo"));
+  btn.classList.add("ativo");
+  render();
+}
+function toggle(dia, habito){
+  const chave = `${pessoaAtual}-${dia}-${habito}`;
+  dados[chave] = !dados[chave];
+  localStorage.setItem("habitos_outubro_v3", JSON.stringify(dados));
+  render();
+}
+function render(){
+  const cal = document.getElementById("calendario");
+  cal.innerHTML = "";
+  const nomesDia = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  for(let d=5; d<=31; d++){
+    const data = new Date(2026, 9, d);
+    const diaSemana = data.getDay();
+    if(diaSemana === 0 || diaSemana === 6) continue;
+    const diaDiv = document.createElement("div");
+    diaDiv.className = "dia";
+    diaDiv.innerHTML = `<div class="data">Dia ${d} - ${nomesDia[diaSemana]} - ${d}/10</div>
+      <div class="habitos">${habitosLista.map(h=>{
+        const feito = dados[`${pessoaAtual}-${d}-${h}`];
+        return `<span class="h ${feito?'feito':''}" onclick="toggle(${d},'${h}')">${h} ${feito?' ✓':''}</span>`
+      }).join("")}</div>`;
+    cal.appendChild(diaDiv);
+  }
+}
+render();
+</script>
 </body>
 </html>
