@@ -1,52 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #1b160d;
-    color: #8b6f47;
-    font-family: Georgia, serif;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
+  background: #f5ebe0;
+  font-family: Arial, sans-serif;
+  color: #5a3e2b;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background: #fffaf5;
+  max-width: 700px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(90, 62, 43, 0.1);
+  text-align: center;
 }
 
 h1 {
-    font-size: 42px;
-    font-style: italic;
-    border-bottom: 2px solid #d2b48c;
-    padding-bottom: 10px;
+  font-size: 2.2rem;
+  margin-bottom: 5px;
 }
 
-h2 {
-    margin-top: 30px;
-    color: #8b6f47;
+.subtitulo {
+  color: #9c7c5f;
+  margin-bottom: 25px;
 }
 
-label {
-    display: block;
-    background: #fff;
-    margin: 8px 0;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #e8d5b5;
-    cursor: pointer;
-    transition: 0.2s;
+.galeria {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 25px 0;
+  flex-wrap: wrap;
 }
 
-label:hover {
-    background: #f5e6cc;
+.galeria img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
 }
 
-input[type="checkbox"] {
-    accent-color: #8b6f47;
-    margin-right: 10px;
+.galeria img:hover {
+  transform: scale(1.05);
 }
 
-img {
-    border-radius: 15px;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 300px;
+.habitos {
+  text-align: left;
+  background: #fdf2e9;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
 }
 
-a {
-    color: #8b6f47;
-    font-weight: bold;
+.habitos h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.habitos label {
+  display: block;
+  padding: 10px;
+  margin: 8px 0;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.habitos input {
+  margin-right: 10px;
+}
+
+.botao {
+  display: inline-block;
+  margin-top: 20px;
+  background: #8b5e3c;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.botao:hover {
+  background: #6f4a2f;
 }
